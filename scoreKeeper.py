@@ -50,6 +50,7 @@ def display_stats(playerList):
         print(" 1. View All Players")
         print(" 2. Select a Player")
         print(" 0. Return to Main Menu")
+        print()
         while True:
             try:
                 choice = int(input("Enter your choice: "))
@@ -64,6 +65,11 @@ def display_stats(playerList):
             return
         elif choice == 1:
             print("All Players Stats:")
+            print("-" * 30)
+            # Display stats for all players
+            if not playerList:
+                print("No players found. Please add players first.")
+                return
             for player in playerList:
                 print(f"Name: {player.get_player_name()}")
                 print(f"  Score: {player.get_score()}")

@@ -73,7 +73,7 @@ class Player:
     
     def get_player_avg(self):
         """Return the player's average score."""
-        return self.playerAvg
+        return self.player_avg
     
     def get_winning_avg(self):
         """Return the player's winning average."""
