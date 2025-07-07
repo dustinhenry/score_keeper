@@ -42,6 +42,7 @@ def display_stats(playerList):
         print("No players found. Please add players first.")
         return
     else:
+        print()
         print("\n" + "=" * 30)
         print("PLAYER STATS")
         print("-" * 30)
@@ -64,6 +65,7 @@ def display_stats(playerList):
         if choice == 0:
             return
         elif choice == 1:
+            print()
             print("All Players Stats:")
             print("-" * 30)
             # Display stats for all players
