@@ -46,9 +46,60 @@ def display_stats(playerList):
         print("PLAYER STATS")
         print("-" * 30)
 
-        for i, player in enumerate(playerList, start=1):
-            print(f"{i}. {player}\n\n")
-        print()
+        print("Would you like to view all players or select a specific player?")
+        print(" 1. View All Players")
+        print(" 2. Select a Player")
+        print(" 0. Return to Main Menu")
+        while True:
+            try:
+                choice = int(input("Enter your choice: "))
+                if choice in [0, 1, 2]:
+                    break
+                else:
+                    print("Invalid choice, please try again.")
+            except ValueError:
+                print("Not a valid option. Please enter a number from the list of options.")
+
+        if choice == 0:
+            return
+        elif choice == 1:
+            print("All Players Stats:")
+            for player in playerList:
+                print(f"Name: {player.get_player_name()}")
+                print(f"  Score: {player.get_score()}")
+                print(f"  Wins: {player.get_wins()}")
+                print(f"  Final Scores: {player.get_final_score_list()}")
+                print(f"  Games Played: {player.get_games_played()}")
+                print(f"  Average Score: {player.get_player_avg()}")
+                print(f"  Winning Average: {player.get_winning_avg()}")
+                print(f"  High Score: {player.calc_high_score()}")
+                print("-" * 30)
+            input("Press Enter to return to the main menu.")
+            return
+        elif choice == 2:
+            print("Select a player to view their stats:")
+            for i, player in enumerate(playerList, start=1):
+                print(f" {i}. {player.get_player_name()}")
+            while True:
+                try:
+                    choice = int(input("Enter player number: "))
+                    if 1 <= choice <= len(playerList):
+                        player = playerList[choice - 1]
+                        print(f"Stats for {player.get_player_name()}:")
+                        print(f"  Score: {player.get_score()}")
+                        print(f"  Wins: {player.get_wins()}")
+                        print(f"  Final Scores: {player.get_final_score_list()}")
+                        print(f"  Games Played: {player.get_games_played()}")
+                        print(f"  Average Score: {player.get_player_avg()}")
+                        print(f"  Winning Average: {player.get_winning_avg()}")
+                        print(f"  High Score: {player.calc_high_score()}")
+                        print("-" * 30)
+                        input("Press Enter to return to the main menu.")
+                        break
+                    else:
+                        print("Invalid choice, please try again.")
+                except ValueError:
+                    print("Not a valid option. Please enter a number from the list of options.")  
 
 def add_player(playerList=None):
     """Function to add a new player."""
