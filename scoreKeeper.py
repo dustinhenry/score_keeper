@@ -10,4 +10,279 @@
 @version: 1.0
 """
 
-import random
+import csvHelper
+import Player
+
+def displayMenu():
+    """Function to display the menu options."""
+    print("\n" + "=" * 30)
+    print("SCOREKEEPER")
+    print("MENU OPTIONS:")
+    print(" 1. View Player Stats")
+    print(" 2. Play 'May I'")
+    print(" 3. Add Player")
+    print(" 0. Exit")
+    print()
+
+def gameOption():
+    """Prompts user to enter an integer for game option."""
+    while True:
+        try:
+            option = int(input("Enter your choice: "))
+            if option in [0, 1, 2, 3]:
+               return option
+            else:
+               print("Invalid choice, please try again.")
+        except ValueError:
+            print("Not a valid option. Please enter a number from the list of options.")
+
+def displayPlayerStats(playerList):
+    """Function to display player stats. Takes a list of Player objects."""
+    if len(playerList) == 0:
+        print("No players found. Please add players first.")
+        return
+    else:
+        print("\n" + "=" * 30)
+        print("PLAYER STATS")
+        print("-" * 30)
+
+        for i, player in enumerate(playerList, start=1):
+            print(f"{i}. {player}\n\n")
+        print()
+
+def addPlayer(playerList=None):
+    """Function to add a new player."""
+    if playerList is None:
+        playerList = []
+
+    playerName = input("Enter the player's name: ").strip()
+    if not playerName:
+        print("Player name cannot be empty. Please try again.")
+        return
+
+    # Check if player already exists
+    for player in playerList:
+        if player.get_player_name().lower() == playerName.lower():
+            print(f"Player '{playerName}' already exists. Please try again.")
+            return
+
+    newPlayer = Player.Player(playerName)
+    playerList.append(newPlayer)
+    print(f"Player '{playerName}' added successfully.")
+
+    # Write updated player list to file
+    playerData = playerToList(playerList)
+    csvHelper.writeFile(playerData)
+
+def playerToList(playerList):
+    """Function to convert player objects to a list of lists for writing to file."""
+    playerData = []
+    for player in playerList:
+        playerData.append([player.get_player_name(), player.get_score(), player.get_wins(), player.get_final_score_list()])
+    return playerData
+
+def listToPlayer(playerData):
+    """Function to convert a list of lists back to Player objects."""
+    playerList = []
+    if not playerData:
+        print("No player data found. Please add players first.")
+        return playerList
+    
+    else:
+        for data in playerData:
+            playerName = data[0]
+            score = float(data[1])
+            wins = float(data[2])
+            finalScoreList = eval(data[3]) if len(data) > 0 else []
+            newPlayer = Player.Player(playerName, score, wins, finalScoreList)
+            playerList.append(newPlayer)
+    return playerList
+
+def separatePlayers(playerFullList, chosenIndices):
+    """Function to separate chosen players from the full list."""
+    chosenList = []
+    notChosenList = []
+
+    for i, player in enumerate(playerFullList):
+        if i in chosenIndices:
+            chosenList.append(player)
+        else:
+            notChosenList.append(player)
+
+    return chosenList, notChosenList
+
+def mayI(playerFullList):
+    """Function to play 'May I' game."""
+    if len(playerFullList) == 0:
+        print("No players found. Please add players first.")
+
+        chosenList = []
+        notChosenList = []
+
+        # Get number of players
+        while True:
+            try:
+                numPlayers = int(input("Enter the number of players: "))
+                if numPlayers <= 0:
+                    print("Number of players must be greater than 0. Please try again.")
+                else:
+                    break
+            except ValueError:
+                print("Invalid input. Please enter a valid number.")
+
+        for i in range(numPlayers):
+            playerName = input(f"Enter name for player {i + 1}: ")
+            newPlayer = Player.Player(playerName)
+            chosenList.append(newPlayer)
+        
+
+    else:
+        print("Players found:")
+        for i, player in enumerate(playerFullList, start=1):
+            print(f" {i}. {player.name}")
+
+        print("Choose players for the game by entering their numbers (separated by spaces):")
+        while True:
+            try:
+                chosenIndices = input("Enter player numbers: ").strip().split()
+                chosenIndices = [int(index) - 1 for index in chosenIndices if index.isdigit() and int(index) - 1 < len(playerFullList)]
+                if not chosenIndices:
+                    print("No valid players selected. Please try again.")
+                    continue
+                break
+            except ValueError:
+                print("Invalid input. Please enter valid player numbers.")
+            
+        chosenList, notChosenList = separatePlayers(playerFullList, chosenIndices)
+
+    for i in range(7):
+        if i == 0:
+            print("")
+            print("----Round 1 - 2 BOOKS----")
+            print("")
+            print("Current Scores:")
+            for player in chosenList:
+                print(f"{player.name}: {player.score} points")
+            print("")
+            for player in chosenList:
+                player.add_score(float(input(f"Enter points for {player.name}: ")))
+
+        elif i == 1:
+            print("")
+            print("----Round 2 - 1 BOOK 1 RUN----")
+            print("")
+            print("Current Scores:")
+            for player in chosenList:
+                print(f"{player.name}: {player.score} points")
+            print("")
+            for player in chosenList:
+                player.add_score(float(input(f"Enter points for {player.name}: ")))
+
+        elif i == 2:
+            print("")
+            print("----Round 3 - 2 RUNS----")
+            print("")
+            print("Current Scores:")
+            for player in chosenList:
+                print(f"{player.name}: {player.score} points")
+            print("")
+            for player in chosenList:
+                player.add_score(float(input(f"Enter points for {player.name}: ")))
+
+        elif i == 3:
+            print("")
+            print("----Round 4 - 3 BOOKS----")
+            print("")
+            print("Current Scores:")
+            for player in chosenList:
+                print(f"{player.name}: {player.score} points")
+            print("")
+            for player in chosenList:
+                player.add_score(float(input(f"Enter points for {player.name}: ")))
+
+        elif i == 4:
+            print("")
+            print("----Round 5 - 2 BOOKS 1 RUN----")
+            print("")
+            print("Current Scores:")
+            for player in chosenList:
+                print(f"{player.name}: {player.score} points")
+            print("")
+            for player in chosenList:
+                player.add_score(float(input(f"Enter points for {player.name}: ")))
+
+        elif i == 5:
+            print("")
+            print("----Round 6 - 2 RUNS 1 BOOK----")
+            print("")
+            print("Current Scores:")
+            for player in chosenList:
+                print(f"{player.name}: {player.score} points")
+            print("")
+            for player in chosenList:
+                player.add_score(float(input(f"Enter points for {player.name}: ")))
+
+        elif i == 6:
+            print("")
+            print("----Round 7 - 3 RUNS----")
+            print("")
+            print("Current Scores:")
+            for player in chosenList:
+                print(f"{player.name}: {player.score} points")
+            print("")
+            for player in chosenList:
+                player.add_score(float(input(f"Enter points for {player.name}: ")))
+
+    print()  
+    print("----Final Scores----") 
+    print() 
+    
+    scoreList = []
+    for player in chosenList:
+        print(f"{player.name}: {player.score} points")
+        scoreList.append(player.score)
+    print()
+
+    for player in chosenList:
+        if player.score == min(scoreList):
+            print(f"{player.name} has won 'May I' with {player.score} points!")
+            player.add_win()
+
+    # Add final scores to player list and reset scores
+    for player in chosenList:
+        player.add_final_score_to_list()
+        player.reset_score()
+
+    fullPlayerList = chosenList + notChosenList
+    playerData = playerToList(fullPlayerList)
+    csvHelper.writeFile(playerData)
+
+def main():
+    """Main function to run the score keeper."""
+    while True:
+        playerList = csvHelper.readFile()
+        displayMenu()
+        choice = gameOption()
+
+        if choice == 0:
+            print("Exiting SCOREKEEPER. Goodbye!")
+            break
+
+        elif choice == 1:
+            if not playerList:
+                print("No players found. Please add players first.")
+                continue
+            else:
+                displayPlayerStats(listToPlayer(playerList))
+
+        elif choice == 2:
+            mayI(listToPlayer(playerList))
+
+        elif choice == 3:
+            addPlayer(listToPlayer(playerList))
+
+        else:
+            print("Invalid option, please try again.")
+
+if __name__ == "__main__":
+    main()
