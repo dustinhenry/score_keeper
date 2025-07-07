@@ -114,7 +114,6 @@ def separatePlayers(playerFullList, chosenIndices):
 def mayI(playerFullList):
     """Function to play 'May I' game."""
     if len(playerFullList) == 0:
-        print("No players found. Please add players first.")
 
         chosenList = []
         notChosenList = []
@@ -135,7 +134,7 @@ def mayI(playerFullList):
             newPlayer = Player.Player(playerName)
             chosenList.append(newPlayer)
         
-
+    # If players are already present
     else:
         print("Players found:")
         for i, player in enumerate(playerFullList, start=1):
