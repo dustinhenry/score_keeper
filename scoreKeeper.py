@@ -13,7 +13,7 @@
 import csvHelper
 import Player
 
-def displayMenu():
+def display_menu():
     """Function to display the menu options."""
     print("\n" + "=" * 30)
     print("SCOREKEEPER")
@@ -24,7 +24,7 @@ def displayMenu():
     print(" 0. Exit")
     print()
 
-def gameOption():
+def game_option():
     """Prompts user to enter an integer for game option."""
     while True:
         try:
@@ -36,7 +36,7 @@ def gameOption():
         except ValueError:
             print("Not a valid option. Please enter a number from the list of options.")
 
-def displayPlayerStats(playerList):
+def display_stats(playerList):
     """Function to display player stats. Takes a list of Player objects."""
     if len(playerList) == 0:
         print("No players found. Please add players first.")
@@ -50,7 +50,7 @@ def displayPlayerStats(playerList):
             print(f"{i}. {player}\n\n")
         print()
 
-def addPlayer(playerList=None):
+def add_player(playerList=None):
     """Function to add a new player."""
     if playerList is None:
         playerList = []
@@ -71,17 +71,17 @@ def addPlayer(playerList=None):
     print(f"Player '{playerName}' added successfully.")
 
     # Write updated player list to file
-    playerData = playerToList(playerList)
+    playerData = class_to_list(playerList)
     csvHelper.writeFile(playerData)
 
-def playerToList(playerList):
+def class_to_list(playerList):
     """Function to convert player objects to a list of lists for writing to file."""
     playerData = []
     for player in playerList:
         playerData.append([player.get_player_name(), player.get_score(), player.get_wins(), player.get_final_score_list()])
     return playerData
 
-def listToPlayer(playerData):
+def list_to_class(playerData):
     """Function to convert a list of lists back to Player objects."""
     playerList = []
     if not playerData:
@@ -98,7 +98,7 @@ def listToPlayer(playerData):
             playerList.append(newPlayer)
     return playerList
 
-def separatePlayers(playerFullList, chosenIndices):
+def split_players(playerFullList, chosenIndices):
     """Function to separate chosen players from the full list."""
     chosenList = []
     notChosenList = []
@@ -113,7 +113,8 @@ def separatePlayers(playerFullList, chosenIndices):
 
 def mayI(playerFullList):
     """Function to play 'May I' game."""
-    # Checks if playerFullList is empty
+
+    # Checks if playerFullList is empty and returns to main menu if so
     if len(playerFullList) == 0:
         print("No players found. Please add players first.")
         return
@@ -136,8 +137,9 @@ def mayI(playerFullList):
             except ValueError:
                 print("Invalid input. Please enter valid player numbers.")
             
-        chosenList, notChosenList = separatePlayers(playerFullList, chosenIndices)
+        chosenList, notChosenList = split_players(playerFullList, chosenIndices)
 
+    # Game Rounds - Adds scores for each player in each round
     for i in range(7):
         if i == 0:
             print("")
@@ -216,16 +218,17 @@ def mayI(playerFullList):
             for player in chosenList:
                 player.add_score(float(input(f"Enter points for {player.name}: ")))
 
+    # Final Score Displays
     print()  
     print("----Final Scores----") 
     print() 
-    
     scoreList = []
     for player in chosenList:
         print(f"{player.name}: {player.score} points")
         scoreList.append(player.score)
     print()
 
+    # Display Winner(s)
     for player in chosenList:
         if player.score == min(scoreList):
             print(f"{player.name} has won 'May I' with {player.score} points!")
@@ -237,15 +240,15 @@ def mayI(playerFullList):
         player.reset_score()
 
     fullPlayerList = chosenList + notChosenList
-    playerData = playerToList(fullPlayerList)
+    playerData = class_to_list(fullPlayerList)
     csvHelper.writeFile(playerData)
 
 def main():
     """Main function to run the score keeper."""
     while True:
         playerList = csvHelper.readFile()
-        displayMenu()
-        choice = gameOption()
+        display_menu()
+        choice = game_option()
 
         if choice == 0:
             print("Exiting SCOREKEEPER. Goodbye!")
@@ -256,13 +259,13 @@ def main():
                 print("No players found. Please add players first.")
                 continue
             else:
-                displayPlayerStats(listToPlayer(playerList))
+                display_stats(list_to_class(playerList))
 
         elif choice == 2:
-            mayI(listToPlayer(playerList))
+            mayI(list_to_class(playerList))
 
         elif choice == 3:
-            addPlayer(listToPlayer(playerList))
+            add_player(list_to_class(playerList))
 
         else:
             print("Invalid option, please try again.")

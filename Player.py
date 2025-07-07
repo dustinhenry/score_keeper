@@ -4,22 +4,22 @@ class Player:
         self.name = name
         self.score = score
         self.wins = wins
-        self.finalScoreList = finalScoreList if finalScoreList is not None else []
-        self.games_played = len(self.finalScoreList)
-        self.playerAvg = self.calcAvg()
-        self.winningAvg = self.calcWinAvg()
-        self.highScore = self.highScore()
+        self.final_score_list = finalScoreList if finalScoreList is not None else []
+        self.games_played = len(self.final_score_list)
+        self.player_avg = self.calc_avg()
+        self.win_avg = self.calc_win_avg()
+        self.high_score = self.calc_high_score()
     
     # Methods to calculate averages
-    def calcAvg(self):
+    def calc_avg(self):
         """Calculate the player's average score."""
         try:
-            avg = round(sum(self.finalScoreList) / len(self.finalScoreList), 3)
+            avg = round(sum(self.final_score_list) / len(self.final_score_list), 3)
         except ZeroDivisionError:
             avg = 0.0
         return avg
     
-    def calcWinAvg(self):
+    def calc_win_avg(self):
         """Calculate the player's winning average."""
         try:
             win_avg = round(self.wins / self.games_played, 3)
@@ -27,7 +27,7 @@ class Player:
             win_avg = 0.0
         return win_avg
     
-    def highScore(self):
+    def calc_high_score(self):
         """Return the highest score from the final score list."""
         if self.finalScoreList:
             return max(self.finalScoreList)
@@ -77,10 +77,9 @@ class Player:
     
     def get_winning_avg(self):
         """Return the player's winning average."""
-        return self.winningAvg
+        return self.win_avg
     
     # String representation of the player
-    
     def __str__(self):
         """Return a string representation of the player."""
-        return f"Player: {self.name}\n   Wins: {self.wins}\n   Games Played: {self.games_played}\n   Average Score: {self.playerAvg}\n   Winning Average: {self.winningAvg}\n   High Score: {self.highScore}"
+        return f"Player: {self.name}\n   Wins: {self.wins}\n   Games Played: {self.games_played}\n   Average Score: {self.playerAvg}\n   Winning Average: {self.win_avg}\n   High Score: {self.high_score}"
