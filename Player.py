@@ -1,10 +1,10 @@
 class Player:
     """Class to represent a player."""
-    def __init__(self, name, score=0, wins=0, finalScoreList=None):
+    def __init__(self, name, score=0, wins=0, final_score_list=None):
         self.name = name
         self.score = score
         self.wins = wins
-        self.final_score_list = finalScoreList if finalScoreList is not None else []
+        self.final_score_list = final_score_list if final_score_list is not None else []
         self.games_played = len(self.final_score_list)
         self.player_avg = self.calc_avg()
         self.win_avg = self.calc_win_avg()
@@ -29,8 +29,8 @@ class Player:
     
     def calc_high_score(self):
         """Return the highest score from the final score list."""
-        if self.finalScoreList:
-            return max(self.finalScoreList)
+        if self.final_score_list:
+            return max(self.final_score_list)
         return 0
     
     # Methods to manage player's score and stats
@@ -48,12 +48,12 @@ class Player:
 
     def add_final_score_to_list(self):
         """Add the final score to the player's final score list."""
-        self.finalScoreList.append(self.score)
+        self.final_score_list.append(self.score)
 
     # Methods to retrieve player's information
     def get_final_score_list(self):
         """Return the player's final score list."""
-        return self.finalScoreList
+        return self.final_score_list
 
     def get_player_name(self):
         """Return the player's name."""
@@ -82,4 +82,4 @@ class Player:
     # String representation of the player
     def __str__(self):
         """Return a string representation of the player."""
-        return f"Player: {self.name}\n   Wins: {self.wins}\n   Games Played: {self.games_played}\n   Average Score: {self.playerAvg}\n   Winning Average: {self.win_avg}\n   High Score: {self.high_score}"
+        return f"Player: {self.name}\n   Wins: {self.wins}\n   Games Played: {self.games_played}\n   Average Score: {self.player_avg}\n   Winning Average: {self.win_avg}\n   High Score: {self.high_score}"
