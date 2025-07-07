@@ -113,26 +113,10 @@ def separatePlayers(playerFullList, chosenIndices):
 
 def mayI(playerFullList):
     """Function to play 'May I' game."""
+    # Checks if playerFullList is empty
     if len(playerFullList) == 0:
-
-        chosenList = []
-        notChosenList = []
-
-        # Get number of players
-        while True:
-            try:
-                numPlayers = int(input("Enter the number of players: "))
-                if numPlayers <= 0:
-                    print("Number of players must be greater than 0. Please try again.")
-                else:
-                    break
-            except ValueError:
-                print("Invalid input. Please enter a valid number.")
-
-        for i in range(numPlayers):
-            playerName = input(f"Enter name for player {i + 1}: ")
-            newPlayer = Player.Player(playerName)
-            chosenList.append(newPlayer)
+        print("No players found. Please add players first.")
+        return
         
     # If players are already present
     else:

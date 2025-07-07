@@ -46,10 +46,6 @@ class Player:
         """Increment the number of wins."""
         self.wins += 1
 
-    def add_game_played(self):
-        """Increment the number of games played."""
-        self.games_played += 1
-
     def add_final_score_to_list(self):
         """Add the final score to the player's final score list."""
         self.finalScoreList.append(self.score)
