@@ -38,6 +38,7 @@ def game_option():
 
 def display_stats(playerList):
     """Function to display player stats. Takes a list of Player objects."""
+    print()
     if len(playerList) == 0:
         print("No players found. Please add players first.")
         return
@@ -96,7 +97,6 @@ def display_stats(playerList):
                         print(f"Stats for {player.get_player_name()}:")
                         print(f"  Score: {player.get_score()}")
                         print(f"  Wins: {player.get_wins()}")
-                        print(f"  Final Scores: {player.get_final_score_list()}")
                         print(f"  Games Played: {player.get_games_played()}")
                         print(f"  Average Score: {player.get_player_avg()}")
                         print(f"  Winning Average: {player.get_winning_avg()}")
