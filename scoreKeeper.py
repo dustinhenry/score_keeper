@@ -74,10 +74,9 @@ def display_stats(playerList):
                 print("No players found. Please add players first.")
                 return
             for player in playerList:
-                print(f"Name: {player.get_player_name()}")
+                print(f"Name: {player.get_player_name()}:")
                 print(f"  Score: {player.get_score()}")
                 print(f"  Wins: {player.get_wins()}")
-                print(f"  Final Scores: {player.get_final_score_list()}")
                 print(f"  Games Played: {player.get_games_played()}")
                 print(f"  Average Score: {player.get_player_avg()}")
                 print(f"  Winning Average: {player.get_winning_avg()}")
@@ -86,6 +85,7 @@ def display_stats(playerList):
             input("Press Enter to return to the main menu.")
             return
         elif choice == 2:
+            print()
             print("Select a player to view their stats:")
             for i, player in enumerate(playerList, start=1):
                 print(f" {i}. {player.get_player_name()}")
@@ -94,6 +94,7 @@ def display_stats(playerList):
                     choice = int(input("Enter player number: "))
                     if 1 <= choice <= len(playerList):
                         player = playerList[choice - 1]
+                        print()
                         print(f"Stats for {player.get_player_name()}:")
                         print(f"  Score: {player.get_score()}")
                         print(f"  Wins: {player.get_wins()}")
@@ -152,7 +153,7 @@ def list_to_class(playerData):
             playerName = data[0]
             score = float(data[1])
             wins = float(data[2])
-            finalScoreList = eval(data[3]) if len(data) > 0 else []
+            finalScoreList = eval(data[3]) if len(data[3]) > 0 else []
             newPlayer = Player.Player(playerName, score, wins, finalScoreList)
             playerList.append(newPlayer)
     return playerList
