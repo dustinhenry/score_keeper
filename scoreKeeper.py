@@ -50,16 +50,13 @@ def game_option():
 
 def display_stats(playerList):
     """Function to display player stats. Takes a list of Player objects."""
-    print()
     if len(playerList) == 0:
         print("No players found. Please add players first.")
         return
     else:
-        print()
         print("\n" + "=" * 30)
         print("PLAYER STATS")
         print("-" * 30)
-
         print("Would you like to view all players or select a specific player?")
         print(" 1. View All Players")
         print(" 2. Select a Player")
@@ -170,19 +167,23 @@ def split_players(playerFullList, chosenIndices):
 
 def set_rotation(chosenList):
     """Function to set player rotation."""
-    print("Setting dealer rotation...")
-    for i, player in enumerate(chosenList, start=1):
-        print(f" {i}. {player.name}")
-    
-    order = input("Enter the order of players by their numbers (separated by spaces): ").strip().split()
-    try:
-        order = [int(num) - 1 for num in order if num.isdigit() and int(num) - 1 < len(chosenList)]
-        if len(order) != len(chosenList):
-            raise ValueError
-        chosenList = [chosenList[i] for i in order]
-        return chosenList
-    except ValueError:
-        print("Invalid order input. Using default order.")
+    while True:
+        try:
+            print()
+            print("Setting dealer rotation...")
+            for i, player in enumerate(chosenList, start=1):
+                print(f" {i}. {player.name}")
+
+            print()
+            order = input("Enter the order of players by their numbers (separated by spaces): ").strip().split()
+            order = [int(num) - 1 for num in order if num.isdigit() and 0 < int(num) <= len(chosenList)]
+            if len(order) != len(chosenList):
+                raise ValueError
+            chosenList = [chosenList[i] for i in order]
+            break
+        except ValueError:
+            print("Invalid order input. Try again.")
+    return chosenList
 
 def rotate_players(chosenList):
     """Function to rotate players for the next round."""
@@ -198,10 +199,11 @@ def mayI(playerFullList):
         
     # If players are already present
     else:
+        print()
         print("Players found:")
         for i, player in enumerate(playerFullList, start=1):
             print(f" {i}. {player.name}")
-
+        print()
         print("Choose players for the game by entering their numbers (separated by spaces):")
         while True:
             try:
@@ -220,9 +222,10 @@ def mayI(playerFullList):
     for i in range(7):
         if i == 0:
             print()
+            chosenList = set_rotation(chosenList)
+            print()
             print("----Round 1 - 2 BOOKS----")
             print()
-            chosenList = set_rotation(chosenList)
             print(f"{chosenList[0].name} is the dealer for Round 1.")
             print()
             print("Current Scores:")
