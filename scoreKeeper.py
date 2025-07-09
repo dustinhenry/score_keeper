@@ -25,6 +25,17 @@ def display_menu():
     print(" 0. Exit")
     print()
 
+def stats(player):
+    """Function to display player stats."""
+    print()
+    print(f"Name: {player.get_player_name()}:")
+    print(f"  Wins: {player.get_wins()}")
+    print(f"  Games Played: {player.get_games_played()}")
+    print(f"  Average Score: {player.get_player_avg()}")
+    print(f"  Winning Average: {player.get_winning_avg()}")
+    print(f"  High Score: {player.calc_high_score()}")
+    print("-" * 30)
+
 def game_option():
     """Prompts user to enter an integer for game option."""
     while True:
@@ -75,14 +86,7 @@ def display_stats(playerList):
                 print("No players found. Please add players first.")
                 return
             for player in playerList:
-                print(f"Name: {player.get_player_name()}:")
-                print(f"  Score: {player.get_score()}")
-                print(f"  Wins: {player.get_wins()}")
-                print(f"  Games Played: {player.get_games_played()}")
-                print(f"  Average Score: {player.get_player_avg()}")
-                print(f"  Winning Average: {player.get_winning_avg()}")
-                print(f"  High Score: {player.calc_high_score()}")
-                print("-" * 30)
+                stats(player)
             input("Press Enter to return to the main menu.")
             return
         elif choice == 2:
@@ -95,15 +99,7 @@ def display_stats(playerList):
                     choice = int(input("Enter player number: "))
                     if 1 <= choice <= len(playerList):
                         player = playerList[choice - 1]
-                        print()
-                        print(f"Stats for {player.get_player_name()}:")
-                        print(f"  Score: {player.get_score()}")
-                        print(f"  Wins: {player.get_wins()}")
-                        print(f"  Games Played: {player.get_games_played()}")
-                        print(f"  Average Score: {player.get_player_avg()}")
-                        print(f"  Winning Average: {player.get_winning_avg()}")
-                        print(f"  High Score: {player.calc_high_score()}")
-                        print("-" * 30)
+                        stats(player)
                         input("Press Enter to return to the main menu.")
                         break
                     else:
