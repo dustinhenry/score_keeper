@@ -199,14 +199,14 @@ def mayI(playerFullList):
         
     # If players are already present
     else:
-        print()
-        print("Players found:")
-        for i, player in enumerate(playerFullList, start=1):
-            print(f" {i}. {player.name}")
-        print()
-        print("Choose players for the game by entering their numbers (separated by spaces):")
         while True:
             try:
+                print()
+                print("Players found:")
+                for i, player in enumerate(playerFullList, start=1):
+                    print(f" {i}. {player.name}")
+                print()
+                print("Choose players for the game by entering their numbers (separated by spaces):")
                 chosenIndices = input("Enter player numbers: ").strip().split()
                 chosenIndices = [int(index) - 1 for index in chosenIndices if index.isdigit() and int(index) - 1 < len(playerFullList)]
                 if not chosenIndices:
