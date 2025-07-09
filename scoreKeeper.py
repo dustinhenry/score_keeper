@@ -25,7 +25,7 @@ def display_menu():
     print(" 0. Exit")
     print()
 
-def stats(player):
+def print_stats(player):
     """Function to display player stats."""
     print()
     print(f"Name: {player.get_player_name()}:")
@@ -86,7 +86,7 @@ def display_stats(playerList):
                 print("No players found. Please add players first.")
                 return
             for player in playerList:
-                stats(player)
+                print_stats(player)
             input("Press Enter to return to the main menu.")
             return
         elif choice == 2:
@@ -99,7 +99,7 @@ def display_stats(playerList):
                     choice = int(input("Enter player number: "))
                     if 1 <= choice <= len(playerList):
                         player = playerList[choice - 1]
-                        stats(player)
+                        print_stats(player)
                         input("Press Enter to return to the main menu.")
                         break
                     else:
@@ -168,6 +168,26 @@ def split_players(playerFullList, chosenIndices):
 
     return chosenList, notChosenList
 
+def set_rotation(chosenList):
+    """Function to set player rotation."""
+    print("Setting dealer rotation...")
+    for i, player in enumerate(chosenList, start=1):
+        print(f" {i}. {player.name}")
+    
+    order = input("Enter the order of players by their numbers (separated by spaces): ").strip().split()
+    try:
+        order = [int(num) - 1 for num in order if num.isdigit() and int(num) - 1 < len(chosenList)]
+        if len(order) != len(chosenList):
+            raise ValueError
+        chosenList = [chosenList[i] for i in order]
+        return chosenList
+    except ValueError:
+        print("Invalid order input. Using default order.")
+
+def rotate_players(chosenList):
+    """Function to rotate players for the next round."""
+    return chosenList[1:] + [chosenList[0]]
+
 def mayI(playerFullList):
     """Function to play 'May I' game."""
 
@@ -199,79 +219,101 @@ def mayI(playerFullList):
     # Game Rounds - Adds scores for each player in each round
     for i in range(7):
         if i == 0:
-            print("")
+            print()
             print("----Round 1 - 2 BOOKS----")
-            print("")
+            print()
+            chosenList = set_rotation(chosenList)
+            print(f"{chosenList[0].name} is the dealer for Round 1.")
+            print()
             print("Current Scores:")
             for player in chosenList:
                 print(f"{player.name}: {player.score} points")
-            print("")
+            print()
             for player in chosenList:
                 player.add_score(float(input(f"Enter points for {player.name}: ")))
 
         elif i == 1:
-            print("")
+            print()
             print("----Round 2 - 1 BOOK 1 RUN----")
-            print("")
+            print()
+            chosenList = rotate_players(chosenList)
+            print(f"{chosenList[0].name} is the dealer for Round 2.")
+            print()
             print("Current Scores:")
             for player in chosenList:
                 print(f"{player.name}: {player.score} points")
-            print("")
+            print()
+            
             for player in chosenList:
                 player.add_score(float(input(f"Enter points for {player.name}: ")))
 
         elif i == 2:
-            print("")
+            print()
             print("----Round 3 - 2 RUNS----")
-            print("")
+            print()
+            chosenList = rotate_players(chosenList)
+            print(f"{chosenList[0].name} is the dealer for Round 3.")
+            print()
             print("Current Scores:")
             for player in chosenList:
                 print(f"{player.name}: {player.score} points")
-            print("")
+            print()
             for player in chosenList:
                 player.add_score(float(input(f"Enter points for {player.name}: ")))
 
         elif i == 3:
-            print("")
+            print()
             print("----Round 4 - 3 BOOKS----")
-            print("")
+            print()
+            chosenList = rotate_players(chosenList)
+            print(f"{chosenList[0].name} is the dealer for Round 4.")
+            print()
             print("Current Scores:")
             for player in chosenList:
                 print(f"{player.name}: {player.score} points")
-            print("")
+            print()
             for player in chosenList:
                 player.add_score(float(input(f"Enter points for {player.name}: ")))
 
         elif i == 4:
-            print("")
+            print()
             print("----Round 5 - 2 BOOKS 1 RUN----")
-            print("")
+            print()
+            chosenList = rotate_players(chosenList)
+            print(f"{chosenList[0].name} is the dealer for Round 5.")
+            print()
             print("Current Scores:")
             for player in chosenList:
                 print(f"{player.name}: {player.score} points")
-            print("")
+            print()
             for player in chosenList:
                 player.add_score(float(input(f"Enter points for {player.name}: ")))
 
         elif i == 5:
-            print("")
+            print()
             print("----Round 6 - 2 RUNS 1 BOOK----")
-            print("")
+            print()
+            chosenList = rotate_players(chosenList)
+            print(f"{chosenList[0].name} is the dealer for Round 6.")
+            print()
             print("Current Scores:")
             for player in chosenList:
                 print(f"{player.name}: {player.score} points")
-            print("")
+            print()
             for player in chosenList:
                 player.add_score(float(input(f"Enter points for {player.name}: ")))
 
         elif i == 6:
-            print("")
+            print()
             print("----Round 7 - 3 RUNS----")
-            print("")
+            print()
+            chosenList = rotate_players(chosenList)
+            print(f"{chosenList[0].name} is the dealer for Round 7.")
+            print()
             print("Current Scores:")
             for player in chosenList:
                 print(f"{player.name}: {player.score} points")
-            print("")
+            print()
             for player in chosenList:
                 player.add_score(float(input(f"Enter points for {player.name}: ")))
 
