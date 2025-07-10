@@ -189,8 +189,8 @@ def list_to_class(playerData):
     else:
         for data in playerData:
             playerName = data[0]
-            score = int(data[1])
-            wins = int(data[2])
+            score = int(float(data[1]))
+            wins = int(float(data[2]))
             finalScoreList = eval(data[3]) if len(data[3]) > 0 else []
             newPlayer = Player.Player(playerName, score, wins, finalScoreList)
             playerList.append(newPlayer)

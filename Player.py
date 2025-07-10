@@ -22,15 +22,15 @@ class Player:
     def calc_win_avg(self):
         """Calculate the player's winning average."""
         try:
-            win_avg = round(self.wins / float(self.games_played), 3)
+            win_avg = str(round(self.wins / float(self.games_played), 3)*100)+"%"
         except ZeroDivisionError:
-            win_avg = 0.0
+            win_avg = str(0)+"%"
         return win_avg
     
     def calc_high_score(self):
         """Return the highest score from the final score list."""
         if self.final_score_list:
-            return max(self.final_score_list)
+            return int(max(self.final_score_list))
         return 0
     
     # Methods to manage player's score and stats
