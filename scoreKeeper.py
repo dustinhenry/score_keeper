@@ -36,6 +36,50 @@ def print_stats(player):
     print(f"  High Score: {player.calc_high_score()}")
     print("-" * 30)
 
+def score_edit(playerList):
+    """Function to edit player score."""
+    while True:
+        while True:
+            # Prompt user to edit a player's score
+            print()
+            option = input("Would you like to edit a player's score? (y/n): ").strip().lower()
+            if option in ['y', 'yes']:
+                break
+            elif option in ['n', 'no']:
+                print("Moving on to the next round. No score editing will be done.")
+                return
+            else:
+                print("Invalid input. Please enter 'y' or 'n'.")
+
+        # Display player list and prompt for selection
+        print()
+        print("Select a player to edit their score:")
+        for i, player in enumerate(playerList, start=1):
+            print(f" {i}. {player.get_player_name()}")
+        while True:
+            try:
+                choice = int(input("Enter player number: "))
+                if 1 <= choice <= len(playerList):
+                    player = playerList[choice - 1]
+                    break
+                else:
+                    print("Invalid choice, please try again.")
+            except ValueError:
+                print("Not a valid option. Please enter a number from the list of options.")
+
+        # Confirm player selection and edits player's current score
+        print()
+        print(f"Editing score for {player.get_player_name()}:")
+        print(f"Current Score: {player.get_score()}")
+        while True:
+            try:
+                new_score = int(input("Enter new score: "))
+                player.set_score(new_score)
+                print(f"Score updated to {player.get_score()}.")
+                break
+            except ValueError:
+                print("Invalid input. Please enter a valid number.")
+
 def game_option():
     """Prompts user to enter an integer for game option."""
     while True:
@@ -145,8 +189,8 @@ def list_to_class(playerData):
     else:
         for data in playerData:
             playerName = data[0]
-            score = float(data[1])
-            wins = float(data[2])
+            score = int(data[1])
+            wins = int(data[2])
             finalScoreList = eval(data[3]) if len(data[3]) > 0 else []
             newPlayer = Player.Player(playerName, score, wins, finalScoreList)
             playerList.append(newPlayer)
@@ -234,6 +278,7 @@ def mayI(playerFullList):
             print()
             for player in chosenList:
                 player.add_score(float(input(f"Enter points for {player.name}: ")))
+            score_edit(chosenList)
 
         elif i == 1:
             print()
@@ -249,6 +294,7 @@ def mayI(playerFullList):
             
             for player in chosenList:
                 player.add_score(float(input(f"Enter points for {player.name}: ")))
+            score_edit(chosenList)
 
         elif i == 2:
             print()
@@ -263,6 +309,7 @@ def mayI(playerFullList):
             print()
             for player in chosenList:
                 player.add_score(float(input(f"Enter points for {player.name}: ")))
+            score_edit(chosenList)
 
         elif i == 3:
             print()
@@ -277,6 +324,7 @@ def mayI(playerFullList):
             print()
             for player in chosenList:
                 player.add_score(float(input(f"Enter points for {player.name}: ")))
+            score_edit(chosenList)
 
         elif i == 4:
             print()
@@ -291,6 +339,7 @@ def mayI(playerFullList):
             print()
             for player in chosenList:
                 player.add_score(float(input(f"Enter points for {player.name}: ")))
+            score_edit(chosenList)
 
         elif i == 5:
             print()
@@ -305,6 +354,7 @@ def mayI(playerFullList):
             print()
             for player in chosenList:
                 player.add_score(float(input(f"Enter points for {player.name}: ")))
+            score_edit(chosenList)
 
         elif i == 6:
             print()
@@ -319,6 +369,7 @@ def mayI(playerFullList):
             print()
             for player in chosenList:
                 player.add_score(float(input(f"Enter points for {player.name}: ")))
+            score_edit(chosenList)
 
     # Final Score Displays
     print()  

@@ -14,7 +14,7 @@ class Player:
     def calc_avg(self):
         """Calculate the player's average score."""
         try:
-            avg = round(sum(self.final_score_list) / len(self.final_score_list), 3)
+            avg = round(sum(self.final_score_list) / float(len(self.final_score_list)), 3)
         except ZeroDivisionError:
             avg = 0.0
         return avg
@@ -22,7 +22,7 @@ class Player:
     def calc_win_avg(self):
         """Calculate the player's winning average."""
         try:
-            win_avg = round(self.wins / self.games_played, 3)
+            win_avg = round(self.wins / float(self.games_played), 3)
         except ZeroDivisionError:
             win_avg = 0.0
         return win_avg
@@ -37,6 +37,10 @@ class Player:
     def add_score(self, points):
         """Add points to the player's score."""
         self.score += points
+
+    def set_score(self, score):
+        """Set the player's score to a specific value."""
+        self.score = score
 
     def reset_score(self):
         """Reset the player's score to zero."""
