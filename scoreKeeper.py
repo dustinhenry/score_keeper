@@ -277,7 +277,7 @@ def mayI(playerFullList):
                 print(f"{player.name}: {player.score} points")
             print()
             for player in chosenList:
-                player.add_score(float(input(f"Enter points for {player.name}: ")))
+                player.add_score(int(input(f"Enter points for {player.name}: ")))
             score_edit(chosenList)
 
         elif i == 1:
@@ -293,7 +293,7 @@ def mayI(playerFullList):
             print()
             
             for player in chosenList:
-                player.add_score(float(input(f"Enter points for {player.name}: ")))
+                player.add_score(int(input(f"Enter points for {player.name}: ")))
             score_edit(chosenList)
 
         elif i == 2:
@@ -308,7 +308,7 @@ def mayI(playerFullList):
                 print(f"{player.name}: {player.score} points")
             print()
             for player in chosenList:
-                player.add_score(float(input(f"Enter points for {player.name}: ")))
+                player.add_score(int(input(f"Enter points for {player.name}: ")))
             score_edit(chosenList)
 
         elif i == 3:
@@ -323,7 +323,7 @@ def mayI(playerFullList):
                 print(f"{player.name}: {player.score} points")
             print()
             for player in chosenList:
-                player.add_score(float(input(f"Enter points for {player.name}: ")))
+                player.add_score(int(input(f"Enter points for {player.name}: ")))
             score_edit(chosenList)
 
         elif i == 4:
@@ -338,7 +338,7 @@ def mayI(playerFullList):
                 print(f"{player.name}: {player.score} points")
             print()
             for player in chosenList:
-                player.add_score(float(input(f"Enter points for {player.name}: ")))
+                player.add_score(int(input(f"Enter points for {player.name}: ")))
             score_edit(chosenList)
 
         elif i == 5:
@@ -353,7 +353,7 @@ def mayI(playerFullList):
                 print(f"{player.name}: {player.score} points")
             print()
             for player in chosenList:
-                player.add_score(float(input(f"Enter points for {player.name}: ")))
+                player.add_score(int(input(f"Enter points for {player.name}: ")))
             score_edit(chosenList)
 
         elif i == 6:
@@ -368,7 +368,7 @@ def mayI(playerFullList):
                 print(f"{player.name}: {player.score} points")
             print()
             for player in chosenList:
-                player.add_score(float(input(f"Enter points for {player.name}: ")))
+                player.add_score(int(input(f"Enter points for {player.name}: ")))
             score_edit(chosenList)
 
     # Final Score Displays
