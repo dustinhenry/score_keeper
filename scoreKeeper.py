@@ -174,19 +174,20 @@ def add_player(playerList=None):
 
 def class_to_list(playerList):
     """Function to convert player objects to a list of lists for writing to file."""
-    playerData = []
+    playerData = [["Player Name", "Score", "Wins", "Final Score List", "Games Played", "Average Score", "Winning Average"]]
     for player in playerList:
-        playerData.append([player.get_player_name(), player.get_score(), player.get_wins(), player.get_final_score_list()])
+        playerData.append([player.get_player_name(), player.get_score(), player.get_wins(), player.get_final_score_list(), player.get_games_played(), player.get_player_avg(), player.get_winning_avg()])
     return playerData
 
 def list_to_class(playerData):
-    """Function to convert a list of lists back to Player objects."""
+    """Function to convert a list of lists into Player objects."""
     playerList = []
     if not playerData:
         print("No player data found. Please add players first.")
         return playerList
     
     else:
+        playerData = playerData[1:]  # Skip header row
         for data in playerData:
             playerName = data[0]
             score = int(float(data[1]))
