@@ -25,17 +25,6 @@ def display_menu():
     print(" 0. Exit")
     print()
 
-def print_stats(player):
-    """Function to display player stats."""
-    print()
-    print(f"Name: {player.get_player_name()}:")
-    print(f"  Wins: {player.get_wins()}")
-    print(f"  Games Played: {player.get_games_played()}")
-    print(f"  Average Score: {player.get_player_avg()}")
-    print(f"  Winning Average: {player.get_winning_avg()}")
-    print(f"  High Score: {player.calc_high_score()}")
-    print("-" * 30)
-
 def score_edit(playerList):
     """Function to edit player score."""
     while True:
@@ -127,8 +116,8 @@ def display_stats(playerList):
                 print("No players found. Please add players first.")
                 return
             for player in playerList:
-                print_stats(player)
-            input("Press Enter to return to the main menu.")
+                print(player)
+                print("-" * 30)
             return
         elif choice == 2:
             print()
@@ -174,9 +163,9 @@ def add_player(playerList=None):
 
 def class_to_list(playerList):
     """Function to convert player objects to a list of lists for writing to file."""
-    playerData = [["Player Name", "Score", "Wins", "Final Score List", "Games Played", "Average Score", "Winning Average"]]
+    playerData = [["Player Name", "Wins", "Final Score List", "Games Played", "Average Score", "Winning Average"]]
     for player in playerList:
-        playerData.append([player.get_player_name(), player.get_score(), player.get_wins(), player.get_final_score_list(), player.get_games_played(), player.get_player_avg(), player.get_winning_avg()])
+        playerData.append([player.get_player_name(), player.get_wins(), player.get_final_score_list(), player.get_games_played(), player.get_player_avg(), player.get_winning_avg()])
     return playerData
 
 def list_to_class(playerData):
@@ -190,9 +179,9 @@ def list_to_class(playerData):
         playerData = playerData[1:]  # Skip header row
         for data in playerData:
             playerName = data[0]
-            score = int(float(data[1]))
-            wins = int(float(data[2]))
-            finalScoreList = eval(data[3]) if len(data[3]) > 0 else []
+            score = 0
+            wins = int(float(data[1]))
+            finalScoreList = eval(data[2]) if len(data[2]) > 0 else []
             newPlayer = Player.Player(playerName, score, wins, finalScoreList)
             playerList.append(newPlayer)
     return playerList

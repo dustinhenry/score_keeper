@@ -22,9 +22,9 @@ class Player:
     def calc_win_avg(self):
         """Calculate the player's winning average."""
         try:
-            win_avg = str(round(self.wins / float(self.games_played) * 100, 1))+"%"
+            win_avg = round(self.wins / float(self.games_played), 3)
         except ZeroDivisionError:
-            win_avg = str(0)+"%"
+            win_avg = 0
         return win_avg
     
     def calc_high_score(self):
@@ -86,4 +86,4 @@ class Player:
     # String representation of the player
     def __str__(self):
         """Return a string representation of the player."""
-        return f"Player: {self.name}\n   Wins: {self.wins}\n   Games Played: {self.games_played}\n   Average Score: {self.player_avg}\n   Winning Average: {self.win_avg}\n   High Score: {self.high_score}"
+        return f"Player: {self.name}\n   Wins: {self.wins}\n   Games Played: {self.games_played}\n   Average Score: {self.player_avg}\n   Winning Average: {self.win_avg * 100}%\n   High Score: {self.high_score}"
